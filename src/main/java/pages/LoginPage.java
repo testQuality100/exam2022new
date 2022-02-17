@@ -1,6 +1,9 @@
 package pages;
 
+import libs.TestData;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,6 +35,9 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//*[@id='permanentAddress' and @class='mb-1']")
     private WebElement outputPermanentAddress;
+
+    @FindBy(xpath =".//*[text()='Radio Button']")
+    private WebElement radioButton;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -77,17 +83,20 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSubmit);
     }
 
-    public LoginPage clickOnEnter() {
-        clickEnter(buttonSubmit);
-        return this;
+    public void clickOnRadioButton() {
+        clickOnElement(radioButton);
     }
 
-    public LoginPage checkIsOutputDisplayed() {
+    public void moveToElement() {
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        js.executeScript("javascript:window.scrollBy(250,350)");
+    }
 
-        Assert.assertTrue("Output is not displayed", isElementDisplayed(outputName));
-        Assert.assertTrue("Output is not displayed", isElementDisplayed(outputEmail));
-        Assert.assertTrue("Output is not displayed", isElementDisplayed(outputCurrentAddress));
-        Assert.assertTrue("Output is not displayed", isElementDisplayed(outputPermanentAddress));
+    public LoginPage checkOutputDisplayedIsCorrect() {
+        Assert.assertTrue("FullName is incorrect" ,outputName.getText().contains(TestData.VALID_FULL_NAME));
+        Assert.assertTrue("Email is incorrect", outputEmail.getText().contains(TestData.VALID_EMAIL));
+        Assert.assertTrue("Current address is incorrect", outputCurrentAddress.getText().contains(TestData.VALID_CURRENT_ADDRESS));
+        Assert.assertTrue("Permanent address is incorrect", outputPermanentAddress.getText().contains(TestData.VALID_PERMANENT_ADDRESS));
         return this;
     }
 

@@ -2,10 +2,8 @@ package pages;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -15,12 +13,12 @@ import java.util.List;
 
 import static org.hamcrest.core.StringContains.containsString;
 
-abstract public class ParentPage {
+public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
-
     WebDriver webDriver;
 
     WebDriverWait webDriverWait10, webDriverWait15;
+
 
     protected String baseUrl = "https://demoqa.com/text-box";
 
@@ -85,6 +83,9 @@ abstract public class ParentPage {
     protected void clickEnter(WebElement webElement) {
         webDriver.findElement(By.xpath(String.valueOf(webElement))).sendKeys(Keys.ENTER);
     }
+
+
+
 
     protected void selectTextInDropDown(WebElement dropDown, String text) {
         try {

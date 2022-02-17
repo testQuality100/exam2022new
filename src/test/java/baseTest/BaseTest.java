@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.LoginPage;
+import pages.RadioButtonPage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,6 +15,7 @@ public class BaseTest {
     WebDriver webDriver;
     Logger logger = Logger.getLogger(getClass());
     protected LoginPage loginPage;
+    protected RadioButtonPage radioButtonPage;
 
     @Before
     public void setUp() {
@@ -24,7 +26,7 @@ public class BaseTest {
         webDriver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
         logger.info("Browser was open");
         loginPage = new LoginPage(webDriver);
-
+        radioButtonPage = new RadioButtonPage(webDriver);
     }
 
     @After

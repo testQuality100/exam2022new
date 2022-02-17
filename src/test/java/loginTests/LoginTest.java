@@ -13,9 +13,10 @@ public class LoginTest extends BaseTest {
                 .enterEmailInoInputEmail(TestData.VALID_EMAIL)
                 .enterCurrentAddressIntoCurrentAddress(TestData.VALID_CURRENT_ADDRESS)
                 .enterPermanentAddressIntoPermanentAddress(TestData.VALID_PERMANENT_ADDRESS)
-                .clickOnButtonSubmit();
+                .moveToElement();
 
-        loginPage.checkIsOutputDisplayed();
+                loginPage.clickOnButtonSubmit();
 
+        loginPage.checkOutputDisplayedIsCorrect();
     }
 }
