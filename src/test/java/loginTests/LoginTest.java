@@ -15,7 +15,7 @@ public class LoginTest extends BaseTest {
                 .enterPermanentAddressIntoPermanentAddress(TestData.VALID_PERMANENT_ADDRESS)
                 .moveToElement();
 
-                loginPage.clickOnButtonSubmit();
+        loginPage.clickOnButtonSubmit();
 
         loginPage.checkOutputDisplayedIsCorrect();
     }

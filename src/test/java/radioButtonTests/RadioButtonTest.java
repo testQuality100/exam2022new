@@ -9,7 +9,7 @@ public class RadioButtonTest extends BaseTest {
         loginPage
                 .openLoginPage()
                 .clickOnRadioButton()
-                ;
+        ;
 
         radioButtonPage
                 .checkIsRedirectToRadioButtonPage()

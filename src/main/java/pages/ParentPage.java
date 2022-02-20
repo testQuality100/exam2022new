@@ -2,16 +2,11 @@ package pages;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
-
-import static org.hamcrest.core.StringContains.containsString;
 
 public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
@@ -19,8 +14,7 @@ public abstract class ParentPage {
 
     WebDriverWait webDriverWait10, webDriverWait15;
 
-
-    protected String baseUrl = "https://demoqa.com/text-box";
+    protected String baseUrl = "https://demoqa.com";
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -35,13 +29,6 @@ public abstract class ParentPage {
         Assert.assertEquals("Invalid page"
                 , baseUrl + getRelativeUrl()
                 , webDriver.getCurrentUrl());
-    }
-
-    protected void checkUrlWithPattern() {
-        Assert.assertThat("Invalid pag"
-                , webDriver.getCurrentUrl()
-                , containsString(baseUrl + getRelativeUrl())
-        );
     }
 
     protected void enterTextIntoElement(WebElement webElement, String text) {
@@ -72,62 +59,11 @@ public abstract class ParentPage {
 
     protected void clickOnElement(WebElement webElement) {
         try {
-            webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
             webElement.click();
             logger.info("Element was clicked");
         } catch (Exception e) {
             printErrorAndStopTest(e);
         }
-    }
-
-    protected void clickEnter(WebElement webElement) {
-        webDriver.findElement(By.xpath(String.valueOf(webElement))).sendKeys(Keys.ENTER);
-    }
-
-
-
-
-    protected void selectTextInDropDown(WebElement dropDown, String text) {
-        try {
-            Select select = new Select(dropDown);
-            select.selectByVisibleText(text);
-            logger.info(text + " was selected in DO");
-        } catch (Exception e) {
-            printErrorAndStopTest(e);
-        }
-    }
-
-    protected void selectValueInDropDown(WebElement dropDown, String value) {
-        try {
-            Select select = new Select(dropDown);
-            select.selectByValue(value);
-            logger.info(value + " was selected in DO");
-        } catch (Exception e) {
-            printErrorAndStopTest(e);
-        }
-    }
-
-    protected void selectTextInDropDownUi(WebElement dropDownMenu, String text) {
-        try {
-            dropDownMenu.click();
-            List<WebElement> options = webDriver.findElements(By.xpath(".//select[@name='select1']/option"));
-            for (WebElement option : options) {
-                if (option.getText().contains(text)) {
-                    option.click();
-                    logger.info(text + " was selected in DO");
-                    return;
-                }
-            }
-            throw new IllegalStateException("Option is not found for selection: " + text);
-        } catch (Exception e) {
-            printErrorAndStopTest(e);
-        }
-    }
-
-    protected void waitChatToBeHide() {
-        webDriverWait10
-                .withMessage("Chat is not closed")
-                .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(".//*[@id='chat-wrapper']")));
     }
 
     protected void printErrorAndStopTest(Exception e) {

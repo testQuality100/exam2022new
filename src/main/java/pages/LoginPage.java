@@ -1,7 +1,6 @@
 package pages;
 
 import libs.TestData;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -36,8 +35,14 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//*[@id='permanentAddress' and @class='mb-1']")
     private WebElement outputPermanentAddress;
 
-    @FindBy(xpath =".//*[text()='Radio Button']")
+    @FindBy(xpath = ".//*[text()='Radio Button']//..//..//li[@id='item-2']")
     private WebElement radioButton;
+
+    @FindBy(xpath = ".//*[text()='Buttons']//..//..//li[@id='item-4']")
+    private WebElement buttons;
+
+    @FindBy(xpath = ".//*[@class='text' and text()='Check Box']")
+    private WebElement checkBoxButton;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -45,12 +50,12 @@ public class LoginPage extends ParentPage {
 
     @Override
     String getRelativeUrl() {
-        return null;
+        return "/text-box";
     }
 
     public LoginPage openLoginPage() {
         try {
-            webDriver.get(baseUrl + "/");
+            webDriver.get(baseUrl + "/text-box");
             logger.info("LoginPage was open");
         } catch (Exception e) {
             logger.error("Cannot open LoginPage " + e);
@@ -87,13 +92,21 @@ public class LoginPage extends ParentPage {
         clickOnElement(radioButton);
     }
 
+    public void clickOnButtons() {
+        clickOnElement(buttons);
+    }
+
+    public void clickOnCheckBoxButton() {
+        clickOnElement(checkBoxButton);
+    }
+
     public void moveToElement() {
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         js.executeScript("javascript:window.scrollBy(250,350)");
     }
 
     public LoginPage checkOutputDisplayedIsCorrect() {
-        Assert.assertTrue("FullName is incorrect" ,outputName.getText().contains(TestData.VALID_FULL_NAME));
+        Assert.assertTrue("FullName is incorrect", outputName.getText().contains(TestData.VALID_FULL_NAME));
         Assert.assertTrue("Email is incorrect", outputEmail.getText().contains(TestData.VALID_EMAIL));
         Assert.assertTrue("Current address is incorrect", outputCurrentAddress.getText().contains(TestData.VALID_CURRENT_ADDRESS));
         Assert.assertTrue("Permanent address is incorrect", outputPermanentAddress.getText().contains(TestData.VALID_PERMANENT_ADDRESS));

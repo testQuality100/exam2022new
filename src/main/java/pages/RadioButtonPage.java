@@ -9,7 +9,7 @@ public class RadioButtonPage extends ParentPage {
     @FindBy(xpath = ".//div[@class='main-header' and text()='Radio Button']")
     private WebElement inputTitle;
 
-    @FindBy(xpath = ".//input[@id='yesRadio']")
+    @FindBy(xpath = ".//*[@class='custom-control-label' and @for='yesRadio']")
     private WebElement inputYesRadio;
 
     @FindBy(xpath = ".//span[@class='text-success']")
