@@ -12,7 +12,8 @@ public class ButtonsTest extends BaseTest {
         loginPage.clickOnButtons();
         buttonsPage
                 .checkIsRedirectToButtonsPage()
-                .doubleClickElement();
+                .doubleClickElement()
+                .checkDoubleClickMessageIsDisplayed();
     }
 
     @Test
@@ -23,7 +24,8 @@ public class ButtonsTest extends BaseTest {
         loginPage.clickOnButtons();
         buttonsPage
                 .checkIsRedirectToButtonsPage()
-                .rightClickElement();
+                .rightClickButton()
+                .checkRightClickMessageIsDisplayed();
     }
 
     @Test
@@ -34,6 +36,7 @@ public class ButtonsTest extends BaseTest {
         loginPage.clickOnButtons();
         buttonsPage
                 .checkIsRedirectToButtonsPage()
-                .dynamicClickElement();
+                .dynamicClickElement()
+                .checkDynamicClickMessageIsDisplayed();
     }
 }

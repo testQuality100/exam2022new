@@ -2,8 +2,10 @@ package pages;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -29,6 +31,11 @@ public abstract class ParentPage {
         Assert.assertEquals("Invalid page"
                 , baseUrl + getRelativeUrl()
                 , webDriver.getCurrentUrl());
+    }
+
+    public void moveToElement() {
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        js.executeScript("javascript:window.scrollBy(250,350)");
     }
 
     protected void enterTextIntoElement(WebElement webElement, String text) {
@@ -62,6 +69,26 @@ public abstract class ParentPage {
             webElement.click();
             logger.info("Element was clicked");
         } catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+    }
+
+    protected void rightClickOnElement(WebElement webElement) {
+        try {
+            Actions actions = new Actions(webDriver);
+            actions.contextClick(webElement).perform();
+            logger.info("RightClick button was clicked on");
+        } catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+    }
+
+    protected void doubleClickOnElement(WebElement webElement){
+        try{
+            Actions actions = new Actions(webDriver);
+            actions.doubleClick(webElement).perform();
+            logger.info("DoubleClick button was clicked on");
+        }catch (Exception e) {
             printErrorAndStopTest(e);
         }
     }

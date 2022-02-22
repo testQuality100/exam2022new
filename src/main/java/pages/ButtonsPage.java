@@ -3,7 +3,6 @@ package pages;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class ButtonsPage extends ParentPage {
@@ -45,28 +44,37 @@ public class ButtonsPage extends ParentPage {
     }
 
     public ButtonsPage doubleClickElement() {
-        Actions actions = new Actions(webDriver);
-        actions.doubleClick(doubleClickButton).perform();
-        Assert.assertTrue("Double click message is not displayed"
-                , isElementDisplayed(doubleClickMessage));
-        logger.info("DoubleClick button was clicked on");
+        doubleClickOnElement(doubleClickButton);
         return this;
     }
 
-    public ButtonsPage rightClickElement() {
-        Actions actions = new Actions(webDriver);
-        actions.contextClick(rightClickButton).perform();
+    public ButtonsPage checkDoubleClickMessageIsDisplayed() {
+        Assert.assertTrue("Double click message is not displayed"
+                , isElementDisplayed(doubleClickMessage));
+
+        return this;
+    }
+
+    public ButtonsPage rightClickButton() {
+        rightClickOnElement(rightClickButton);
+        return this;
+    }
+
+    public ButtonsPage checkRightClickMessageIsDisplayed() {
         Assert.assertTrue("Right click message is not displayed"
                 , isElementDisplayed(rightClickMessage));
-        logger.info("RightClick button was clicked on");
+
         return this;
     }
 
     public ButtonsPage dynamicClickElement() {
         clickOnElement(dynamicClickButton);
+        return this;
+    }
+
+    public ButtonsPage checkDynamicClickMessageIsDisplayed() {
         Assert.assertTrue("Dynamic click message is not displayed"
                 , isElementDisplayed(dynamicClickMessage));
-        logger.info("Dynamic click button was clicked on");
         return this;
     }
 }

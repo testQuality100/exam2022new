@@ -2,7 +2,6 @@ package pages;
 
 import libs.TestData;
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -100,16 +99,31 @@ public class LoginPage extends ParentPage {
         clickOnElement(checkBoxButton);
     }
 
-    public void moveToElement() {
-        JavascriptExecutor js = (JavascriptExecutor) webDriver;
-        js.executeScript("javascript:window.scrollBy(250,350)");
+    public LoginPage checkOutPutFullName() {
+        Assert.assertTrue("FullName is incorrect", outputName.getText().contains(TestData.VALID_FULL_NAME));
+        return this;
+    }
+
+    public LoginPage checkOutPutEmail() {
+        Assert.assertTrue("Email is incorrect", outputEmail.getText().contains(TestData.VALID_EMAIL));
+        return this;
+    }
+
+    public LoginPage checkOutPutCurrentAddress() {
+        Assert.assertTrue("Current address is incorrect", outputCurrentAddress.getText().contains(TestData.VALID_CURRENT_ADDRESS));
+        return this;
+    }
+
+    public LoginPage checkOutPutPermanentAddress() {
+        Assert.assertTrue("Permanent address is incorrect", outputPermanentAddress.getText().contains(TestData.VALID_PERMANENT_ADDRESS));
+        return this;
     }
 
     public LoginPage checkOutputDisplayedIsCorrect() {
-        Assert.assertTrue("FullName is incorrect", outputName.getText().contains(TestData.VALID_FULL_NAME));
-        Assert.assertTrue("Email is incorrect", outputEmail.getText().contains(TestData.VALID_EMAIL));
-        Assert.assertTrue("Current address is incorrect", outputCurrentAddress.getText().contains(TestData.VALID_CURRENT_ADDRESS));
-        Assert.assertTrue("Permanent address is incorrect", outputPermanentAddress.getText().contains(TestData.VALID_PERMANENT_ADDRESS));
+        checkOutPutFullName();
+        checkOutPutEmail();
+        checkOutPutCurrentAddress();
+        checkOutPutPermanentAddress();
         return this;
     }
 
